@@ -38,26 +38,56 @@ void zlog_thread_profile(zlog_thread_t * a_thread, int flag)
 	return;
 }
 /*******************************************************************************/
-void zlog_thread_del(zlog_thread_t * a_thread)
+void zlog_thread_del(zlog_thread_t ** a_thread)
 {
-	zc_assert(a_thread,);
-	if (a_thread->mdc)
-		zlog_mdc_del(a_thread->mdc);
-	if (a_thread->event)
-		zlog_event_del(a_thread->event);
-	if (a_thread->pre_path_buf)
-		zlog_buf_del(a_thread->pre_path_buf);
-	if (a_thread->path_buf)
-		zlog_buf_del(a_thread->path_buf);
-	if (a_thread->archive_path_buf)
-		zlog_buf_del(a_thread->archive_path_buf);
-	if (a_thread->pre_msg_buf)
-		zlog_buf_del(a_thread->pre_msg_buf);
-	if (a_thread->msg_buf)
-		zlog_buf_del(a_thread->msg_buf);
+	//return;
+	zc_assert(*a_thread,);
+	if (*a_thread == NULL)
+		return;
+	if ((*a_thread)->mdc)
+	{
+		zlog_mdc_del((*a_thread)->mdc);
+		(*a_thread)->mdc = NULL;
+	}
+		
+	if ((*a_thread)->event)
+	{
+		zlog_event_del((*a_thread)->event);
+		(*a_thread)->event = NULL;
+	}
+		
+	if ((*a_thread)->pre_path_buf)
+	{
+		zlog_buf_del((*a_thread)->pre_path_buf);
+		(*a_thread)->pre_path_buf = NULL;
+	}
+	if ((*a_thread)->path_buf)
+	{
+		zlog_buf_del((*a_thread)->path_buf);
+		(*a_thread)->path_buf = NULL;
+	}
+		
+	if ((*a_thread)->archive_path_buf)
+	{
+		zlog_buf_del((*a_thread)->archive_path_buf);
+		(*a_thread)->archive_path_buf = NULL;
+	}
+		
+	if ((*a_thread)->pre_msg_buf) {
+		zlog_buf_del((*a_thread)->pre_msg_buf);
+		(*a_thread)->pre_msg_buf = NULL;
+	}
+		
+	if ((*a_thread)->msg_buf) {
+		zlog_buf_del((*a_thread)->msg_buf);
+		(*a_thread)->msg_buf = NULL;
+	}
+		
 
-	free(a_thread);
-	zc_debug("zlog_thread_del[%p]", a_thread);
+	//free((*a_thread));
+	//(*a_thread) = NULL;
+	memset(*a_thread, 0, sizeof(zlog_thread_t));
+	zc_debug("zlog_thread_del[%p]", (*a_thread));
 	return;
 }
 
@@ -119,7 +149,8 @@ zlog_thread_t *zlog_thread_new(int init_version, size_t buf_size_min, size_t buf
 	//zlog_thread_profile(a_thread, ZC_DEBUG);
 	return a_thread;
 err:
-	zlog_thread_del(a_thread);
+	zlog_thread_del(&a_thread);
+	a_thread = NULL;
 	return NULL;
 }
 

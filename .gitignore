@@ -9,6 +9,8 @@
 *.VC.VC.opendb
 *.sdf
 *~
+*info
+info*
 
 # Build results
 

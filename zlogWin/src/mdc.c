@@ -33,8 +33,12 @@ void zlog_mdc_profile(zlog_mdc_t *a_mdc, int flag)
 void zlog_mdc_del(zlog_mdc_t * a_mdc)
 {
 	zc_assert(a_mdc,);
-	if (a_mdc->tab) zc_hashtable_del(a_mdc->tab);
+	if (a_mdc->tab)
+	{
+		zc_hashtable_del(a_mdc->tab);
+	}
 	free(a_mdc);
+	a_mdc = NULL;
 	zc_debug("zlog_mdc_del[%p]", a_mdc);
 	return;
 }

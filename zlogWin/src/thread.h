@@ -27,7 +27,7 @@ typedef struct {
 } zlog_thread_t;
 
 
-void zlog_thread_del(zlog_thread_t * a_thread);
+void zlog_thread_del(zlog_thread_t ** a_thread);
 void zlog_thread_profile(zlog_thread_t * a_thread, int flag);
 zlog_thread_t *zlog_thread_new(int init_version,
 			size_t buf_size_min, size_t buf_size_max, int time_cache_count);

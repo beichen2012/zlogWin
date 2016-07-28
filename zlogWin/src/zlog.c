@@ -60,7 +60,10 @@ static void zlog_clean_rest_thread(void)
 	zlog_thread_t *a_thread;
 	a_thread = pthread_getspecific(zlog_thread_key);
 	if (!a_thread) return;
-	zlog_thread_del(a_thread);
+	zlog_thread_del(&a_thread);
+	//memset(a_thread, 0, sizeof())
+	//a_thread = NULL;
+	//free(a_thread);
 	return;
 }
 
@@ -436,8 +439,9 @@ err:
   \
 		rd = pthread_setspecific(zlog_thread_key, a_thread);  \
 		if (rd) {  \
-			zlog_thread_del(a_thread);  \
+			zlog_thread_del(&a_thread);  \
 			zc_error("pthread_setspecific fail, rd[%d]", rd);  \
+			a_thread = NULL;									\
 			goto fail_goto;  \
 		}  \
 	}  \

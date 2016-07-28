@@ -73,6 +73,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <TargetName>zlogx86d</TargetName>
+    <IncludePath>$(ZLOG);$(IncludePath)</IncludePath>
+    <LibraryPath>$(ZLOG);$(UNIXEM)lib\;$(PTHREAD)\bin\vc2015\;$(DShowSample)release\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,7 +150,7 @@
       <OutputFile>$(OutDir)zlogx86.dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>$(ProjectDir)zlog.def</ModuleDefinitionFile>
-      <UACExecutionLevel>HighestAvailable</UACExecutionLevel>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

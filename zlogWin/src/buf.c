@@ -78,8 +78,10 @@ void zlog_buf_profile(zlog_buf_t * a_buf, int flag)
 void zlog_buf_del(zlog_buf_t * a_buf)
 {
 	//zc_assert(a_buf,);
-	if (a_buf->start) free(a_buf->start);
+	if (a_buf->start) 
+		free(a_buf->start);
 	free(a_buf);
+	a_buf = NULL;
 	zc_debug("zlog_buf_del[%p]", a_buf);
 	return;
 }

@@ -79,11 +79,17 @@ void zc_hashtable_del(zc_hashtable_t * a_table)
 				a_table->value_del(p->value);
 			}
 			free(p);
+			p = NULL;
 		}
 	}
 	if (a_table->tab)
+	{
 		free(a_table->tab);
+		a_table->tab = NULL;
+	}
+		
 	free(a_table);
+	a_table = NULL;
 
 	return;
 }

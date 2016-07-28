@@ -11,7 +11,8 @@
 * Licensed under the LGPL v2.1, see the file COPYING in base directory.
 */
 
-#include "fmacros.h"
+//#include "fmacros.h"
+#include "../../zlogWin/zlogWin/src/fmacros.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +22,8 @@
 #include <unistd.h>
 
 #include "zlog.h"
-#include "version.h"
+#include "../zlogWin/src/version.h"
+//#include "version.h"
 #include "getopt.h"
 
 

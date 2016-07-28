@@ -107,8 +107,9 @@ static int zlog_rule_output_static_file_single(zlog_rule_t * a_rule, zlog_thread
 	}
 
 	if (do_file_reload) {
-		winclose(a_rule->static_fd);
-		a_rule->static_fd = 0;
+		if(a_rule->static_fd)
+			winclose(a_rule->static_fd);
+		//a_rule->static_fd = 0;
 		a_rule->static_fd = winopen(a_rule->file_path,
 			O_WRONLY | O_APPEND | O_CREAT | a_rule->file_open_flags,
 			a_rule->file_perms);
@@ -127,13 +128,26 @@ static int zlog_rule_output_static_file_single(zlog_rule_t * a_rule, zlog_thread
 		a_rule->static_dev = stb.st_dev;
 		a_rule->static_ino = stb.st_ino;
 	}
+	/*a_rule->static_fd = winopen(a_rule->file_path,
+		O_WRONLY | O_APPEND | O_CREAT | a_rule->file_open_flags,
+		a_rule->file_perms);
+	if (a_rule->static_fd < 0) {
+		zc_error("open file[%s] fail, errno[%d]", a_rule->file_path, errno);
+		return -1;
+	}*/
 
 	if (winwrite(a_rule->static_fd,
 			zlog_buf_str(a_thread->msg_buf),
 			zlog_buf_len(a_thread->msg_buf)) < 0) {
+		winclose(a_rule->static_fd);
 		zc_error("write fail, errno[%d]", errno);
 		return -1;
 	}
+
+	/*if (winclose(a_rule->static_fd) < 0) {
+		zc_error("close fail, maybe cause by write, errno[%d]", errno);
+		return -1;
+	}*/
 
 	/* not so thread safe here, as multiple thread may ++fsync_count at the same time */
 	if (a_rule->fsync_period && ++a_rule->fsync_count >= a_rule->fsync_period) {
@@ -188,7 +202,7 @@ static int zlog_rule_output_static_file_rotate(zlog_rule_t * a_rule, zlog_thread
 	if (winwrite(fd, zlog_buf_str(a_thread->msg_buf), len) < 0) {
 		zc_error("write fail, errno[%d]", errno);
 		winclose(fd);
-		fd = 0;
+		//fd = 0;
 		return -1;
 	}
 
@@ -201,7 +215,7 @@ static int zlog_rule_output_static_file_rotate(zlog_rule_t * a_rule, zlog_thread
 		zc_error("close fail, maybe cause by write, errno[%d]", errno);
 		return -1;
 	}
-	fd = 0;
+	//fd = 0;
 
 	if (a_rule->fsync_period && ++a_rule->fsync_count >= a_rule->fsync_period) {
 		a_rule->fsync_count = 0;
@@ -277,7 +291,7 @@ static int zlog_rule_output_dynamic_file_single(zlog_rule_t * a_rule, zlog_threa
 	if (winwrite(fd, zlog_buf_str(a_thread->msg_buf), zlog_buf_len(a_thread->msg_buf)) < 0) {
 		zc_error("write fail, errno[%d]", errno);
 		winclose(fd);
-		fd = 0;
+		//fd = 0;
 		return -1;
 	}
 
@@ -320,7 +334,7 @@ static int zlog_rule_output_dynamic_file_rotate(zlog_rule_t * a_rule, zlog_threa
 	if (winwrite(fd, zlog_buf_str(a_thread->msg_buf), len) < 0) {
 		zc_error("write fail, errno[%d]", errno);
 		winclose(fd);
-		fd = 0;
+		//fd = 0;
 		return -1;
 	}
 
@@ -333,7 +347,7 @@ static int zlog_rule_output_dynamic_file_rotate(zlog_rule_t * a_rule, zlog_threa
 		zc_error("write fail, maybe cause by write, errno[%d]", errno);
 		return -1;
 	}
-	fd = 0;
+	//fd = 0;
 
 	if (len > a_rule->archive_max_size) {
 		zc_debug("one msg's len[%ld] > archive_max_size[%ld], no rotate",
@@ -839,30 +853,33 @@ zlog_rule_t *zlog_rule_new(char *line,
 				a_rule->output = zlog_rule_output_static_file_rotate;
 			}
 
-			a_rule->static_fd = winopen(a_rule->file_path,
-				O_WRONLY | O_APPEND | O_CREAT | a_rule->file_open_flags,
-				a_rule->file_perms);
-			if (a_rule->static_fd < 0) {
-				zc_error("open file[%s] fail, errno[%d]", a_rule->file_path, errno);
-				goto err;
-			}
-
-			/* save off the inode information for checking for a changed file later on */
-#ifdef _MSC_VER
-			if( _stat(a_rule->file_path, &stb)){
-#else
-			if (fstat(a_rule->static_fd, &stb)) {
-#endif
-				zc_error("stat [%s] fail, errno[%d], failing to open static_fd", a_rule->file_path, errno);
-				goto err;
-			}
-			a_rule->static_dev = stb.st_dev;
-			a_rule->static_ino = stb.st_ino;
-			if (winclose(a_rule->static_fd) < 0)
-			{
-				zc_error("close failed");
-			}
-			a_rule->static_fd = 0;
+//			a_rule->static_fd = winopen(a_rule->file_path,
+//				O_WRONLY | O_APPEND | O_CREAT | a_rule->file_open_flags,
+//				a_rule->file_perms);
+//			if (a_rule->static_fd < 0) {
+//				zc_error("open file[%s] fail, errno[%d]", a_rule->file_path, errno);
+//				goto err;
+//			}
+//
+//			/* save off the inode information for checking for a changed file later on */
+//#ifdef _MSC_VER
+//			if( _stat(a_rule->file_path, &stb)){
+//#else
+//			if (fstat(a_rule->static_fd, &stb)) {
+//#endif
+//				zc_error("stat [%s] fail, errno[%d], failing to open static_fd", a_rule->file_path, errno);
+//				goto err;
+//			}
+//			a_rule->static_dev = stb.st_dev;
+//			a_rule->static_ino = stb.st_ino;
+//			if (a_rule->archive_max_size > 0) 
+//			{
+//				if (winclose(a_rule->static_fd) < 0)
+//				{
+//					zc_error("close failed");
+//				}
+//			}
+			//a_rule->static_fd = 0;
 		}
 		break;
 
@@ -985,7 +1002,7 @@ void zlog_rule_del(zlog_rule_t * a_rule)
 		if (winclose(a_rule->static_fd)) {
 			zc_error("close fail, maybe cause by write, errno[%d]", errno);
 		}
-		a_rule->static_fd = 0;
+		//a_rule->static_fd = 0;
 	}
 #ifndef _MSC_VER
 	if (a_rule->pipe_fp) {
