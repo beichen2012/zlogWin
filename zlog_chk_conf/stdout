@@ -1,8 +1,0 @@
-07-04 15:02:12 ERROR (11880:d:\projects\zlogwin\zlogwin\src\rule.c:812) archive_path must contain #r or #s
-07-04 15:02:13 ERROR (11880:d:\projects\zlogwin\zlogwin\src\conf.c:499) zlog_rule_new fail [cat.=info "./info", "10MB * 3"; simple1]
-07-04 15:02:13 ERROR (11880:d:\projects\zlogwin\zlogwin\src\conf.c:326) parse configure file[D:\projects\zlogWin\zlogWin\zlog.conf]line_no[19] fail
-07-04 15:02:13 ERROR (11880:d:\projects\zlogwin\zlogwin\src\conf.c:327) line[cat.=info "./info", "10MB * 3"; simple1]
-07-04 15:02:13 ERROR (11880:d:\projects\zlogwin\zlogwin\src\conf.c:169) zlog_conf_build_with_file fail
-07-04 15:02:13 ERROR (11880:d:\projects\zlogwin\zlogwin\src\zlog.c:93) zlog_conf_new[D:\projects\zlogWin\zlogWin\zlog.conf] fail
-07-04 15:02:13 ERROR (11880:d:\projects\zlogwin\zlogwin\src\zlog.c:143) zlog_init_inner[D:\projects\zlogWin\zlogWin\zlog.conf] fail
-07-04 15:02:13 ERROR (11880:d:\projects\zlogwin\zlogwin\src\zlog.c:158) ------zlog_init fail end------
