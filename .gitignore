@@ -16,13 +16,11 @@ info*
 
 [Dd]ebug/
 [Rr]elease/
-x64/
 [Ww]in32/
 build/
 [Bb]in/
 [Oo]bj/
 [L]ib/
-x86/
 tmh/
 tmhh/
 Generated Files/

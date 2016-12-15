@@ -30,7 +30,7 @@
 #include <pthread.h>    /* for pthread_t */
 #include <stdarg.h>     /* for va_list */
 #include "zc_defs.h"
-#pragma comment(lib, "pthreadx86d.lib")
+//#pragma comment(lib, "pthreadx86d.lib")
 
 typedef enum {
 	ZLOG_FMT = 0,

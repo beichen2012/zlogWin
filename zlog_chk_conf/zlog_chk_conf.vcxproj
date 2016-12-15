@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\projects\zlogWin\zlogWin\src;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\projects\zlogWin\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)unixem-1.9.1\include;$(SolutionDir)zlogWin\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>

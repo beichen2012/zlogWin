@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	_putenv("ZLOG_PROFILE_ERROR=d:\\debug.log");
 	_putenv("ZLOG_CHECK_FORMAT_RULE=d:\\rule.log");
 	_putenv("ZLOG_PROFILE_ERROR=d:\\error.log");
-	rc = zlog_init("D:\\ZLOG-PATH\\zlog.conf");
+	rc = zlog_init("D:\\projects\\zlogWin\\Debug\\zlog.conf");
 
 	if (rc) {
 		printf("init failed\n");
