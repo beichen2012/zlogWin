@@ -1,4 +1,21 @@
-#include "stdafx.h"
+只需要一个头文件`zlog.h`，然后引入对应的dll即可：
+```c++
+#ifdef _DEBUG
+#ifndef _WIN64
+#pragma comment(lib, "zlogx86d.lib")
+#else
+#pragma comment(lib, "zlogx64d.lib")
+#endif
+#else
+#ifndef _WIN64
+#pragma comment(lib, "zlogx86.lib")
+#else
+#pragma comment(lib, "zlogx64.lib")
+#endif
+#endif
+```
+一个例子如下(对应的conf文件见同级目录)：
+```c++
 #include <stdio.h>
 #include "../zlogWin/src/zlog.h"
 #include <Windows.h>
@@ -34,3 +51,4 @@ int main(int argc, char** argv)
 
 	return 0;
 }
+```
