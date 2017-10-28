@@ -33,12 +33,12 @@ int main(int argc, char** argv)
 	zlog_fini();*/
 
 	LOG_INIT();
-
+	ENTER_FUNC;
 	LOGI("this is info");
 	LOGI("this is info with param: %s", "ÄãºÃ");
 
 
-
+	LEAVE_FUNC;
 	LOG_FINI();
 
 	return 0;
