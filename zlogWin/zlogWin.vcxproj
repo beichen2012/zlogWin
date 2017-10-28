@@ -130,7 +130,7 @@
       <AdditionalDependencies>pthreadVC2.lib;unixemd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>$(ProjectDir)zlog.def</ModuleDefinitionFile>
-      <OutputFile>$(OutDir)zlogx64d.dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);$(SolutionDir)prebuilt-dll-2-9-1-release\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -179,7 +179,7 @@
       <AdditionalDependencies>pthreadVC2.lib;unixem.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>libcmt.lib</IgnoreSpecificDefaultLibraries>
       <ModuleDefinitionFile>$(ProjectDir)zlog.def</ModuleDefinitionFile>
-      <OutputFile>$(OutDir)zlogx64.dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Platform)\$(Configuration);$(SolutionDir)prebuilt-dll-2-9-1-release\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
