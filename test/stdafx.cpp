@@ -6,3 +6,8 @@
 
 // TODO: reference any additional headers you need in STDAFX.H
 // and not in this file
+#ifdef _DEBUG
+#pragma comment(lib, "zlogWind.lib")
+#else
+#pragma comment(lib, "zlogWin.lib")
+#endif

@@ -14,15 +14,7 @@
 
 // TODO: reference additional headers your program requires here
 #ifdef _DEBUG
-#ifndef _WIN64
-#pragma comment(lib, "zlogx86d.lib")
+#pragma comment(lib, "zlogWind.lib")
 #else
-#pragma comment(lib, "zlogx64d.lib")
-#endif
-#else
-#ifndef _WIN64
-#pragma comment(lib, "zlogx86.lib")
-#else
-#pragma comment(lib, "zlogx64.lib")
-#endif
+#pragma comment(lib, "zlogWin.lib")
 #endif
